@@ -17,17 +17,10 @@ producer = SimpleProducer(kafka)
 consumer = KafkaConsumer(*in_streams, group_id="my_group",
                          metadata_broker_list=[KAFKA_BROKER_IP_PORT])
 
-
-for message in consumer:
-    # message is raw byte string -- decode if necessary!
-    # e.g., for unicode: `message.decode('utf-8')`
-    execute(message)
-
-# kafka.close()
-
 def execute(message):
 	# IMPLEMENT THIS
 	print message
+	# emit("your-output-topic", "Your output message string.")
 
 def emit(topic, msg):
 	"""
@@ -42,3 +35,11 @@ def emit(topic, msg):
 
 def close():
 	kafka.close()
+
+if __name__=="__main__":
+	for message in consumer:
+		# message is raw byte string -- decode if necessary!
+		# e.g., for unicode: `message.decode('utf-8')`
+		execute(message)
+
+	# kafka.close()

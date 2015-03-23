@@ -2,7 +2,7 @@
 Template project for a Kafka stream processing node.
 
 # Usage
-Clone this project into a directory for your app (`your_app`).
+Clone this project into a directory for your app (e.g., `your_app`).
 ```
 git clone https://github.com/mfaulk/kafka-python-bolt.git your_app
 cd your_app
@@ -12,6 +12,7 @@ You will deploy your app by referencing a GitHub repository. Create a new GitHub
 ```
 git remote rm origin
 git remote add origin https://github.com/user/newrepo.git
+git push -u origin master
 ```
 
 The command `git remote -v` should now show

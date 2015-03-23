@@ -4,6 +4,9 @@ Description=Sample Kafka producer
 [Service]
 EnvironmentFile=/etc/environment
 
+# Prevents timeouts, e.g. while building a docker image from github.
+TimeoutStartSec=0
+
 ## Directives with "=-" are allowed to fail without consequence.
 ExecStartPre=-/usr/bin/docker kill APP_NAME
 ExecStartPre=-/usr/bin/docker rm APP_NAME
@@ -12,7 +15,7 @@ ExecStartPre=/bin/sh -c "/usr/bin/docker build -t APP_NAME \
 GIT_REPO"
 
 ExecStart=/usr/bin/sh -c '/usr/bin/docker run --name APP_NAME \
-	-e KAFKA_BROKER=$(/usr/bin/etcdctl get /services/kafka):9092 \
+	-e KAFKA_BROKER=$(/usr/bin/etcdctl ls /services/kafka | tail -n 1 | xargs etcdctl get) \
 	APP_NAME'
 
 ExecStop=/usr/bin/docker stop APP_NAME
