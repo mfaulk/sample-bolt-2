@@ -11,7 +11,11 @@ KAFKA_BROKER_IP_PORT = os.getenv('KAFKA_BROKER', '192.168.86.10:9092')
 print "KAFKA BROKER: " + KAFKA_BROKER_IP_PORT
 kafka = KafkaClient(KAFKA_BROKER_IP_PORT)
 producer = SimpleProducer(kafka)
-consumer = KafkaConsumer('input-topic', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
+try:
+	consumer = KafkaConsumer('input-topic', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
+except TypeError:
+	logger.warning('TypeError...')
+
 
 def execute(message):
 	# IMPLEMENT THIS
