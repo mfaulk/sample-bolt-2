@@ -6,16 +6,12 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger('kafka-app')
 
-# Input stream topics
-in_streams = ['test-topic', 'topic-b']
-
 # IP:PORT of a Kafka broker. The typical port is 9092.
 KAFKA_BROKER_IP_PORT = os.getenv('KAFKA_BROKER', '192.168.86.10:9092')
 print "KAFKA BROKER: " + KAFKA_BROKER_IP_PORT
 kafka = KafkaClient(KAFKA_BROKER_IP_PORT)
 producer = SimpleProducer(kafka)
-consumer = KafkaConsumer(*in_streams, group_id="my_group",
-                         metadata_broker_list=[KAFKA_BROKER_IP_PORT])
+consumer = KafkaConsumer('input-topic', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
 
 def execute(message):
 	# IMPLEMENT THIS
