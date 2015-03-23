@@ -12,7 +12,7 @@ print "KAFKA BROKER: " + KAFKA_BROKER_IP_PORT
 kafka = KafkaClient(KAFKA_BROKER_IP_PORT)
 producer = SimpleProducer(kafka)
 try:
-	consumer = KafkaConsumer('input-topic', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
+	consumer = KafkaConsumer('fortune-cookie', group_id="my_group", metadata_broker_list=[KAFKA_BROKER_IP_PORT])
 except TypeError:
 	logger.warning('TypeError...')
 
